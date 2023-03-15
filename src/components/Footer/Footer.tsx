@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import cn from 'classnames';
 import React, { useEffect } from 'react';
 import { TodoStatus } from '../../types/TodoStatus';
 
@@ -33,7 +33,7 @@ export const Footer: React.FC<Props> = React.memo(({
         <a
           data-cy="FilterLinkAll"
           href="#/"
-          className={classNames('filter__link', {
+          className={cn('filter__link', {
             selected: status === TodoStatus.All,
           })}
           onClick={() => onStatusChange(TodoStatus.All)}
@@ -44,7 +44,7 @@ export const Footer: React.FC<Props> = React.memo(({
         <a
           data-cy="FilterLinkActive"
           href="#/active"
-          className={classNames('filter__link', {
+          className={cn('filter__link', {
             selected: status === TodoStatus.Active,
           })}
           onClick={() => onStatusChange(TodoStatus.Active)}
@@ -54,7 +54,7 @@ export const Footer: React.FC<Props> = React.memo(({
         <a
           data-cy="FilterLinkCompleted"
           href="#/completed"
-          className={classNames('filter__link', {
+          className={cn('filter__link', {
             selected: status === TodoStatus.Completed,
           })}
           onClick={() => onStatusChange(TodoStatus.Completed)}

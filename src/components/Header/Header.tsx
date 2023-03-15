@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import cn from 'classnames';
 import React, { useEffect, useRef } from 'react';
 
 type Props = {
@@ -36,7 +36,7 @@ export const Header: React.FC<Props> = React.memo(({
           data-cy="ToggleAllButton"
           type="button"
           aria-label="ToggleAllButton"
-          className={classNames('todoapp__toggle-all', {
+          className={cn('todoapp__toggle-all', {
             active: todosLength === completedTodos,
           })}
           onClick={onToggle}
