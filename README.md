@@ -1,9 +1,10 @@
-# React TypeScript Starter Pack
+# Todo app with api
+This project uses client-server technology with API connection
 
-To use this template click `Use this template`
+Implemented the ability to login with email. 
 
-### Available Scripts
+Each user can add and remove, toggle and rename todos.
 
-`Deploy` - available to deploy your application to gh-pages
+Also user can filter todos by status All / Active / Completed
 
-`SCSS Preprocessor` - available to write your styles with modern style language
+### [DEMO LINK](https://halynarydasova.github.io/todo-app-with-api/)
