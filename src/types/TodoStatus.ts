@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-shadow
 export enum TodoStatus {
-  All,
-  Active,
-  Completed,
+  All = 'All',
+  Active = 'Active',
+  Completed = 'Completed',
 }

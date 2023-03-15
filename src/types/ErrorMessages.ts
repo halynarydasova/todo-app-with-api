@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-shadow
 export enum ErrorMessages {
   TodosWereNotLoaded = 'Cannot load todos list',
   TitleIsEmpty = "Title can't be empty",
