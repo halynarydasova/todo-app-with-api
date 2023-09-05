@@ -1,12 +1,11 @@
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Todo } from '../../types/Todo';
 
 type Props = {
   todo: Todo;
   onDelete: (id: number) => Promise<void>;
   isAdding?: boolean;
-  clearCompleted: boolean;
   changeTodo: (
     id: number,
     title: string,
@@ -19,7 +18,6 @@ export const TodoItem: React.FC<Props> = React.memo(({
   todo,
   onDelete,
   isAdding,
-  clearCompleted,
   changeTodo,
   processedTodo,
 }) => {
@@ -36,15 +34,9 @@ export const TodoItem: React.FC<Props> = React.memo(({
     }
 
     if (newTitle && newTitle !== title) {
-      changeTodo(id, newTitle, false);
+      changeTodo(id, newTitle);
     }
   };
-
-  useEffect(() => {
-    if (clearCompleted && completed) {
-      onDelete(id);
-    }
-  }, [clearCompleted, completed]);
 
   return (
     <div
@@ -55,18 +47,19 @@ export const TodoItem: React.FC<Props> = React.memo(({
     >
       <label
         className="todo__status-label"
-        htmlFor="todo_status"
+        htmlFor={`todo_status_${id}`}
       >
         <input
           data-cy="TodoStatus"
           type="checkbox"
           className="todo__status"
           checked={completed}
-          id="todo_status"
-          onChange={() => changeTodo(id, title)}
+          id={`todo_status_${id}`}
+          onChange={() => {
+            changeTodo(id, title, !completed);
+          }}
         />
       </label>
-
       {(editTitle)
         ? (
           <form

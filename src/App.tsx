@@ -26,7 +26,6 @@ export const App: React.FC = () => {
   const [tempTodo, setTempTodo] = useState<Todo | null>(null);
   const [title, setTitle] = useState('');
   const [filterStatus, setFilterStatus] = useState(TodoStatus.All);
-  const [clearCompleted, setClearCompleted] = useState(false);
   const [processedTodo, setProcessedTodo] = useState<number[]>([0]);
 
   const activeTodos = useMemo(() => {
@@ -97,20 +96,17 @@ export const App: React.FC = () => {
   const handleChangeTodo = (
     id: number,
     caption: string,
-    changeCompletedStatus = true,
+    status = false,
   ) => {
     setProcessedTodo(todosId => [...todosId, id]);
-
-    changeTodo(id, caption).then(() => {
+    changeTodo(id, caption, status).then(() => {
       setTodos((listOfTodos) => (
         listOfTodos.map(todo => {
           return todo.id === id
             ? {
               ...todo,
               title: caption,
-              completed: changeCompletedStatus
-                ? !todo.completed
-                : todo.completed,
+              completed: status,
             }
             : todo;
         })));
@@ -120,6 +116,14 @@ export const App: React.FC = () => {
         todosId.filter(todoId => todoId !== id))));
   };
 
+  const handleClearComplited = () => {
+    todos.forEach(todo => {
+      if (todo.completed) {
+        handleDeleteTodo(todo.id);
+      }
+    });
+  };
+
   const toggleAll = () => {
     const toggleStatus = todosLength === completedTodos;
 
@@ -127,7 +131,7 @@ export const App: React.FC = () => {
       const { id, title: caption, completed } = todo;
 
       if (completed === toggleStatus) {
-        handleChangeTodo(id, caption);
+        handleChangeTodo(id, caption, !completed);
       }
     });
   };
@@ -151,7 +155,6 @@ export const App: React.FC = () => {
           todos={todos}
           onDelete={handleDeleteTodo}
           filterStatus={filterStatus}
-          clearCompleted={clearCompleted}
           changeTodo={handleChangeTodo}
           processedTodo={processedTodo}
         />
@@ -161,7 +164,6 @@ export const App: React.FC = () => {
             todo={tempTodo}
             onDelete={handleDeleteTodo}
             isAdding={isAdding}
-            clearCompleted={clearCompleted}
             changeTodo={handleChangeTodo}
             processedTodo={processedTodo}
           />
@@ -173,7 +175,7 @@ export const App: React.FC = () => {
             status={filterStatus}
             activeTodos={activeTodos}
             completedTodos={completedTodos}
-            onClear={setClearCompleted}
+            onClear={handleClearComplited}
           />
         )}
       </div>

@@ -9,7 +9,6 @@ type Props = {
   tempTodo?: Todo;
   isAdding?: boolean;
   filterStatus: TodoStatus,
-  clearCompleted: boolean,
   changeTodo: (id: number, title: string) => void,
   processedTodo: number[],
 };
@@ -18,8 +17,7 @@ export const TodoList: React.FC<Props> = React.memo(({
   todos,
   onDelete,
   filterStatus,
-  clearCompleted,
-  changeTodo: changeStatus,
+  changeTodo,
   processedTodo,
 }) => {
   const visibleTodos = useMemo(() => {
@@ -40,8 +38,7 @@ export const TodoList: React.FC<Props> = React.memo(({
           todo={todo}
           key={todo.id}
           onDelete={onDelete}
-          clearCompleted={clearCompleted}
-          changeTodo={changeStatus}
+          changeTodo={changeTodo}
           processedTodo={processedTodo}
         />
       ))}
